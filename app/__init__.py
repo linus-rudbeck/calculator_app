@@ -9,6 +9,8 @@ login_manager.login_view = 'login'
 
 def create_app():
     app = Flask(__name__)
+    from app.routes import bp
+    app.register_blueprint(bp)
     app.config.from_object(Config)
     
     db.init_app(app)

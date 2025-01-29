@@ -21,7 +21,7 @@
     {% endif %}
     {% endwith %}
 
-    <form method="POST" action="{{ url_for('register') }}">
+    <form method="POST" action="{{ url_for('main.register') }}">
         <label for="username">Användarnamn:</label>
         <input type="text" id="username" name="username" required><br><br>
 
@@ -30,7 +30,7 @@
 
         <button type="submit">Registrera</button>
     </form>
-    <p>Har du redan ett konto? <a href="{{ url_for('login') }}">Logga in här</a>.</p>
+    <p>Har du redan ett konto? <a href="{{ url_for('main.login') }}">Logga in här</a>.</p>
 
 
 </body>

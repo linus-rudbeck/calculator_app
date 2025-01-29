@@ -14,7 +14,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('calculator'))
+            return redirect(url_for('main.calculator'))
         else:
             flash('Invalid username or password')
     return render_template('login.html')
@@ -26,13 +26,13 @@ def register():
         password = request.form['password']
         if User.query.filter_by(username=username).first():
             flash('Username already exists')
-            return redirect(url_for('register'))
-        hashed_password = generate_password_hash(password, method='sha256')
+            return redirect(url_for('main.register'))
+        hashed_password = generate_password_hash(password, method='scrypt')
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful! Please log in.')
-        return redirect(url_for('login'))
+        return redirect(url_for('main.login'))
     return render_template('register.html')
 
 @bp.route('/logout')
@@ -40,10 +40,10 @@ def register():
 def logout():
     logout_user()
     flash('You have been logged out.')
-    return redirect(url_for('login'))
+    return redirect(url_for('main.login'))
 
 
-@app.route('/calculator', methods=['GET', 'POST'])
+@bp.route('/calculator', methods=['GET', 'POST'])
 @login_required
 def calculator():
     if request.method == 'POST':
