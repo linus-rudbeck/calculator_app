@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+
+<body>
+
+    <h2>Välkommen, {{ current_user.username }}!</h2>
+    <a href="{{ url_for('logout') }}">Logga ut</a>
+    <h3>Kalkylator</h3>
+    <form method="POST" action="{{ url_for('calculator') }}">
+        <input type="text" name="expression" placeholder="Ange uttryck t.ex. 2+2" required>
+        <button type="submit">Beräkna</button>
+    </form>
+    <h3>Dina Beräkningar:</h3>
+    <ul>
+        {% for calc in calculations %}
+        <li>{{ calc.expression }} = {{ calc.result }}</li>
+        {% endfor %}
+    </ul>
+
+
+</body>
+
+</html>
